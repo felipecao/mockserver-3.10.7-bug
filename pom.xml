@@ -4,19 +4,6 @@
 	<groupId>com.hascode.tutorial</groupId>
 	<artifactId>mockserver-junit-tutorial</artifactId>
 	<version>1.0.0</version>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.mock-server</groupId>
@@ -42,4 +29,57 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>start-mockserver</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mock-server</groupId>
+						<artifactId>mockserver-maven-plugin</artifactId>
+						<version>3.10.1</version>
+						<configuration>
+							<serverPort>9000</serverPort>
+							<proxyPort>9000</proxyPort>
+							<logLevel>DEBUG</logLevel>
+						</configuration>
+						<executions>
+							<execution>
+								<id>process-test-classes</id>
+								<phase>process-test-classes</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>verify</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
