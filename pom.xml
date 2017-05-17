@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.hascode.tutorial</groupId>
-	<artifactId>mockserver-junit-tutorial</artifactId>
+	<groupId>com.github.felipecao</groupId>
+	<artifactId>mockserver-3.10.7-bug</artifactId>
 	<version>1.0.0</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.mock-server</groupId>
 			<artifactId>mockserver-netty</artifactId>
-			<version>3.10.2</version>
+			<version>3.10.7</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -44,42 +44,4 @@
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>start-mockserver</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.mock-server</groupId>
-						<artifactId>mockserver-maven-plugin</artifactId>
-						<version>3.10.1</version>
-						<configuration>
-							<serverPort>9000</serverPort>
-							<proxyPort>9000</proxyPort>
-							<logLevel>DEBUG</logLevel>
-						</configuration>
-						<executions>
-							<execution>
-								<id>process-test-classes</id>
-								<phase>process-test-classes</phase>
-								<goals>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>verify</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

@@ -1,29 +1,11 @@
-# MockServer JUnit Tutorial
+# mockserver-netty:3.10.7 bug
 
-Examples how to mock HTTP servers for test using Java, [JUnit] and [MockServer].
+Based on the example available at https://bitbucket.org/hascode/mockserver-junit-tutorial.git
 
-Please feel free to take a look at my blog at [www.hascode.com] for the full tutorial.
+## How to reproduce the bug
 
-**Running Tests**
+Run `mvn clean test` and have a look at the test results.
 
-Run the tests using your IDE of choice or using Maven:
+## How to fix it
 
-```
-mvn test
-```
-
-**Start standalone mock server**
-
-Simply start Maven with the designated profile __"start-mockserver"__
-
-```
-mvn -Pstart-mockserver test
-```
-
-----
-
-**2016 Micha Kops / hasCode.com**
-
-   [MockServer]:http://www.mock-server.com/
-   [www.hascode.com]:http://www.hascode.com/
-   [JUnit]:http://junit.org/
+Go to `pom.xml` and downgrade `mockserver-netty` dependency version to `3.10.4` and watch the tests pass. 

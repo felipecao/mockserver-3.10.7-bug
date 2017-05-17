@@ -24,16 +24,32 @@ public class HttpTest {
 	@Test
 	public void shouldConnectToHttpService() throws Exception {
 		// setting behaviour for test case
-		mockServerClient.when(HttpRequest.request("/foo")).respond(HttpResponse.response().withStatusCode(200));
+		mockServerClient.when(HttpRequest.request("/us/en/foo.extension")).respond(HttpResponse.response().withStatusCode(200));
 
 		// create a GET request using JAX-RS rest client API
 		Client client = ClientBuilder.newClient();
-		Response response = client.target("http://localhost:9000").path("/foo").request().get();
+		Response response = client.target("http://localhost:9000").path("/us/en/foo.extension").request().get();
 
 		// assert response
 		assertThat(response.getStatus(), equalTo(200));
 
 		// verify server has received exactly one request
-		mockServerClient.verify(HttpRequest.request("/foo"), VerificationTimes.once());
+		mockServerClient.verify(HttpRequest.request("/us/en/foo.extension"), VerificationTimes.once());
+	}
+
+	@Test
+	public void shouldConnectToAnotherHttpService() throws Exception {
+		// setting behaviour for test case
+		mockServerClient.when(HttpRequest.request("/de/de/foo.extension")).respond(HttpResponse.response().withStatusCode(200));
+
+		// create a GET request using JAX-RS rest client API
+		Client client = ClientBuilder.newClient();
+		Response response = client.target("http://localhost:9000").path("/de/de/foo.extension").request().get();
+
+		// assert response
+		assertThat(response.getStatus(), equalTo(200));
+
+		// verify server has received exactly one request
+		mockServerClient.verify(HttpRequest.request("/de/de/foo.extension"), VerificationTimes.once());
 	}
 }
