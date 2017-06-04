@@ -17,7 +17,7 @@ import org.mockserver.verify.VerificationTimes;
 
 public class HttpTest {
 	@Rule
-	public MockServerRule mockServerRule = new MockServerRule(this, 9000);
+	public MockServerRule mockServerRule = new MockServerRule(this);
 
 	private MockServerClient mockServerClient;
 
@@ -28,7 +28,7 @@ public class HttpTest {
 
 		// create a GET request using JAX-RS rest client API
 		Client client = ClientBuilder.newClient();
-		Response response = client.target("http://localhost:9000").path("/us/en/foo.extension").request().get();
+		Response response = client.target("http://localhost:" + mockServerRule.getPort()).path("/us/en/foo.extension").request().get();
 
 		// assert response
 		assertThat(response.getStatus(), equalTo(200));
@@ -44,7 +44,7 @@ public class HttpTest {
 
 		// create a GET request using JAX-RS rest client API
 		Client client = ClientBuilder.newClient();
-		Response response = client.target("http://localhost:9000").path("/de/de/foo.extension").request().get();
+		Response response = client.target("http://localhost:" + mockServerRule.getPort()).path("/de/de/foo.extension").request().get();
 
 		// assert response
 		assertThat(response.getStatus(), equalTo(200));
